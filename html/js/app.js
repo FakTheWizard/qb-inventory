@@ -417,6 +417,23 @@ function FormatItemInfo(itemData) {
                 itemData.info.type +
                 "</span></p>"
             );
+        } else if (itemData.name == "insurance_docs") {
+                $(".item-info-title").html("<p>" + itemData.label + "</p>");
+                $(".item-info-description").html(
+                    "<p><strong>Name: </strong><span>" +
+                    itemData.info.personName +
+                    "</span></p><p><strong>Date Of Birth: </strong><span>" +
+                    itemData.info.personDOB +
+                    "</span></p><p><strong>Citizen ID: </strong><span>" +
+                    itemData.info.citizenID +
+                    "</span></p><p><strong>Days: </strong><span>" +
+                    itemData.info.days +
+                    "</span></p><p><strong>Car Reg Number: </strong><span>" +
+                    itemData.info.car_reg +
+                    "</span></p><p><strong>Car Make & Model: </strong><span>" +
+                    itemData.info.car_name +
+                    "</span></p>"
+                );
         } else if (itemData.name == "weaponlicense") {
             $(".item-info-title").html("<p>" + itemData.label + "</p>");
             $(".item-info-description").html(
@@ -441,6 +458,31 @@ function FormatItemInfo(itemData) {
                 itemData.info.citizenid +
                 "</span></p>"
             );
+        } else if (itemData.name == "huntinglicence") {
+            var gender = "Man";
+            if (itemData.info.gender == 1) {
+                gender = "Woman";
+            }
+            $(".item-info-title").html("<p>" + itemData.label + "</p>");
+            $(".item-info-description").html(
+                "<p><strong>CSN: </strong><span>" +
+                itemData.info.citizenid +
+                "</span></p><p><strong>First Name: </strong><span>" +
+                itemData.info.firstname +
+                "</span></p><p><strong>Last Name: </strong><span>" +
+                itemData.info.lastname +
+                "</span></p><p><strong>Birth Date: </strong><span>" +
+                itemData.info.birthdate +
+                "</span></p><p><strong>Gender: </strong><span>" +
+                gender +
+                "</span></p>"
+            );
+        } else if (itemData.name == "stickynote") {
+            $(".item-info-title").html('<p>' + itemData.label + '</p>')
+            $(".item-info-description").html('<p>' + itemData.info.label + '</p>');
+        } else if (itemData.name == "rentalpapers") {
+            $(".item-info-title").html('<p>' + itemData.label + '</p>')
+            $(".item-info-description").html('<p><strong>Name: </strong><span>'+ itemData.info.firstname + '</span></p><p><strong>Last Name: </strong><span>'+ itemData.info.lastname+ '</span></p><p><strong>Plate: </strong><span>'+ itemData.info.plate + '<p><strong>Model: </strong><span>'+ itemData.info.model +'</span></p>');
         } else if (itemData.name == "harness") {
             $(".item-info-title").html("<p>" + itemData.label + "</p>");
             $(".item-info-description").html(
@@ -573,6 +615,12 @@ function FormatItemInfo(itemData) {
             $(".item-info-title").html("<p>" + itemData.label + "</p>");
             $(".item-info-description").html("<p>" + itemData.description + "</p>");
         }
+    } else if (itemData.name == "stickynote") {
+        $(".item-info-title").html('<p>' + itemData.label + '</p>')
+        $(".item-info-description").html('<p>' + itemData.info.label + '</p>');
+    } else if (itemData.name == "rentalpapers") {
+        $(".item-info-title").html('<p>' + itemData.label + '</p>')
+        $(".item-info-description").html('<p><strong>Plate: </strong><span>'+ itemData.info.label + '</span></p>');
     } else {
         $(".item-info-title").html("<p>" + itemData.label + "</p>");
         $(".item-info-description").html("<p>" + itemData.description + "</p>");
@@ -1573,10 +1621,6 @@ function swap($fromSlot, $toSlot, $fromInv, $toInv, $toAmount) {
             );
         } else {
             if (fromData.amount == $toAmount) {
-                if (toData && toData.unique){            
-                    InventoryError($fromInv, $fromSlot);
-                    return;
-                }
                 if (
                     toData != undefined &&
                     toData.combinable != null &&
